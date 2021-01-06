@@ -20,7 +20,7 @@ pipeline {
                 echo 'appImageBuild..'
                 withCredentials([usernamePassword(credetialsId: registryCredsID,
                                                   usernameVariable: 'USERNAME',
-                                                  passwordVariable: 'PASSWORD')] {
+                                                  passwordVariable: 'PASSWORD')]) {
                                 
                 sh """
                 podman build -t ol-runtime --no-cache=true .
@@ -38,7 +38,6 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
-            }
         }
     }
 }
