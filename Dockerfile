@@ -18,8 +18,8 @@ LABEL \
   summary="HelloWorld" \
   description="This image contains the HelloWorld Servlet running with the Open Liberty runtime."
   
-USER root
-#RUN ln -s /opt/ol/wlp/usr/servers /servers
+#USER root
+RUN ln -s /opt/ol/wlp/usr/servers /servers
 
 COPY --chown=1001:0 src/main/liberty/config /config/
 COPY --chown=1001:0 build/libs/helloworld-1.0.war /config/apps
