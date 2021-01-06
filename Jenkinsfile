@@ -8,9 +8,11 @@ pipeline {
                 sh './gradlew clean build'
             }
         }
-        stage('Test') {
+        stage('appImageBuild') {
             steps {
-                echo 'Testing..'
+                echo 'appImageBuild..'
+                podman pull openliberty/open-liberty:kernel-java8-openj9-ubi
+                podman build -t ol-runtime --no-cache=true .
             }
         }
         stage('Deploy') {
