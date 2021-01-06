@@ -1,10 +1,10 @@
+def namespace = env.NAMESPACE ?: "podman"
+def registry = env.REGISTRY ?: "docker.io"
+def imagename = env.IMAGE_NAME ?: "helloworld"
+def registryCredsID = env.REGISTRY_CREDENTIALS ?: "registry-credentials-id"
+
 pipeline {
     agent any
-    
-    def namespace = env.NAMESPACE ?: "podman"
-    def registry = env.REGISTRY ?: "docker.io"
-    def imagename = env.IMAGE_NAME ?: "helloworld"
-    def registryCredsID = env.REGISTRY_CREDENTIALS ?: "registry-credentials-id"
     
     stages {
         stage('Build') {
