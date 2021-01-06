@@ -1,6 +1,6 @@
 def namespace = env.NAMESPACE ?: "podman"
 def registry = env.REGISTRY ?: "docker.io"
-def imagename = env.IMAGE_NAME ?: "helloworld"
+def imageName = env.IMAGE_NAME ?: "helloworld"
 def registryCredsID = env.REGISTRY_CREDENTIALS ?: "registry-credentials-id"
 
 pipeline {
@@ -29,10 +29,10 @@ pipeline {
                 podman build -t ol-runtime --no-cache=true .
                 
                 echo 'registry: ' ${registry}
-                IMAGE=${registry}/${namespace}/${imagename}:${env.BUILD_NUMBER}
-                echo 'imageName: ' $IMAGE
+                IMAGE=${registry}/${namespace}/${imageName}:${env.BUILD_NUMBER}
+                echo 'imageName: ' ${imageName}
                 podman login -u ${USERNAME} -p ${PASSWORD} ${registry} --tls-verify=fales
-                podman push \${IMAGE} --tls-verify=false
+                podman push \${imageName} --tls-verify=false
                 podman commit --format=docker <imageid> docker.io/tomsweeneyredhat/testing:newtry2
                 podman logout
                 """
