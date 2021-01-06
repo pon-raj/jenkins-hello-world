@@ -11,7 +11,6 @@ pipeline {
         stage('appImageBuild') {
             steps {
                 echo 'appImageBuild..'
-                podman pull openliberty/open-liberty:kernel-java8-openj9-ubi
                 podman build -t ol-runtime --no-cache=true .
             }
         }
