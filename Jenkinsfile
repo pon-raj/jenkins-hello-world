@@ -28,9 +28,10 @@ pipeline {
                 sh """
                 podman build -t ol-runtime --no-cache=true .
                 
-                IMAGE=${REGISTRY}/${NAMESPACE}/${IMAGE_NAME}:${env.BUILD_NUMBER}
-                echo :imageName: " $IMAGE
-                podman login -u ${USERNAME} -p ${PASSWORD} ${REGISTRY} --tls-verify=fales
+                echo 'registry: ' ${registry}
+                IMAGE=${registry}/${namespace}/${imagename}:${env.BUILD_NUMBER}
+                echo 'imageName: ' $IMAGE
+                podman login -u ${USERNAME} -p ${PASSWORD} ${registry} --tls-verify=fales
                 podman push \${IMAGE} --tls-verify=false
                 podman commit --format=docker <imageid> docker.io/tomsweeneyredhat/testing:newtry2
                 podman logout
