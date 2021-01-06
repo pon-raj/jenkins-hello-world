@@ -8,15 +8,18 @@ pipeline {
     
     stages {
         stage('Build') {
+            steps {
                 echo 'Build'
                 sh """
                 #!/bin/bash
                 chmod 777 gradlew
                 ./gradlew clean build
                 """
+            }
         }
         
         stage('appImageBuild') {
+            steps {
                 echo 'appImageBuild..'
                 withCredentials([usernamePassword(credetialsId: registryCredsID,
                                                   usernameVariable: 'USERNAME',
@@ -33,6 +36,7 @@ pipeline {
                 podman logout
                 """
                 }
+            }
         }
                                 
         stage('Deploy') {
