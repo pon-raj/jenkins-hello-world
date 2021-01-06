@@ -14,6 +14,12 @@ dependencies {
     providedCompile 'jakarta.platform:jakarta.jakartaee-api:8.0.0'
 }
 
+ext  {
+    liberty.server.var.'default.http.port' = '9080'
+    liberty.server.var.'default.https.port' = '9443'
+    liberty.server.var.'app.context.root' = 'helloworld'
+}
+
 war {
     baseName = 'helloworld'
     version = '1.0'
