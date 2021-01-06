@@ -1,17 +1,38 @@
 pipeline {
     agent any
-
+    
+    def namespace = env.NAMESPACE ?: "default"
+    def registry = env.REGISTRY ?: "docker.io"
+    def imagename = env.IMAGE_NAME ?: ""
+    def registryCredsID = env.REGISTRY_CREDENTIALS ?: "registry-credentials-id"
+    
     stages {
         stage('Build') {
             steps {
-                sh 'chmod 777 gradlew'
-                sh './gradlew clean build'
+                echo 'Build'
+                sh """
+                #!/bin/bash
+                chmod 777 gradlew
+                ./gradlew clean build
+                """
             }
         }
         stage('appImageBuild') {
             steps {
                 echo 'appImageBuild..'
-                sh 'podman build -t ol-runtime --no-cache=true .'
+                withCredentials([usernamePassword(credetialsId: registryCredsID,
+                                                  usernameVariable: 'USERNAME',
+                                                  passwordVariable: 'PASSWORD')]
+                                
+                sh """
+                podman build -t ol-runtime --no-cache=true .
+                
+                IMAGE=${REGISTRY}/${NAMESPACE}/${IMAGE_NAME}:${env.BUILD_NUMBER}
+                podman login -u ${USERNAME} -p ${PASSWORD} ${REGISTRY} --tls-verify=fales
+                podman push \${IMAGE} --tls-verify=false
+                podman commit --format=docker <imageid> docker.io/tomsweeneyredhat/testing:newtry2
+                podman logout
+                """
             }
         }
         stage('Deploy') {
