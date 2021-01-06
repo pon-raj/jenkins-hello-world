@@ -21,7 +21,7 @@ pipeline {
         stage('appImageBuild') {
             steps {
                 echo 'appImageBuild..'
-                withCredentials([usernamePassword(credetialsId: registryCredsID,
+                withCredentials([usernamePassword(credentialsId: registryCredsID,
                                                   usernameVariable: 'USERNAME',
                                                   passwordVariable: 'PASSWORD')]) {
                                 
