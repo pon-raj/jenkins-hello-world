@@ -20,7 +20,7 @@ pipeline {
                 echo 'appImageBuild..'
                 withCredentials([usernamePassword(credetialsId: registryCredsID,
                                                   usernameVariable: 'USERNAME',
-                                                  passwordVariable: 'PASSWORD')]
+                                                  passwordVariable: 'PASSWORD')] {
                                 
                 sh """
                 podman build -t ol-runtime --no-cache=true .
@@ -32,6 +32,7 @@ pipeline {
                 podman commit --format=docker <imageid> docker.io/tomsweeneyredhat/testing:newtry2
                 podman logout
                 """
+                }
         }
                                 
         stage('Deploy') {
