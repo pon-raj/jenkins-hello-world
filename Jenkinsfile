@@ -11,7 +11,7 @@ pipeline {
         stage('appImageBuild') {
             steps {
                 echo 'appImageBuild..'
-                podman build -t ol-runtime --no-cache=true .
+                sh 'podman build -t ol-runtime --no-cache=true .'
             }
         }
         stage('Deploy') {
