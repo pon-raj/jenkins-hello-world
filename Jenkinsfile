@@ -10,11 +10,11 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Build'
-                sh """
+                sh '''
                 #!/bin/bash
                 chmod 777 gradlew
                 ./gradlew clean build
-                """
+                '''
             }
         }
         stage('appImageBuild') {
@@ -24,7 +24,7 @@ pipeline {
                                                   usernameVariable: 'USERNAME',
                                                   passwordVariable: 'PASSWORD')]
                                 
-                sh """
+                sh '''
                 podman build -t ol-runtime --no-cache=true .
                 
                 IMAGE=${REGISTRY}/${NAMESPACE}/${IMAGE_NAME}:${env.BUILD_NUMBER}
@@ -33,7 +33,7 @@ pipeline {
                 podman push \${IMAGE} --tls-verify=false
                 podman commit --format=docker <imageid> docker.io/tomsweeneyredhat/testing:newtry2
                 podman logout
-                """
+                '''
             }
         }
         stage('Deploy') {
