@@ -1,2 +1,9 @@
 .DS_Store
+gradle/
 src/
+.gitattributes
+.gitignore
+Jenkinsfile
+build.gradle
+gradlew
+setting.gradle
