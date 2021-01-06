@@ -8,6 +8,7 @@ pipeline {
     
     stages {
         stage('Build') {
+                echo 'Build'
                 sh """
                 #!/bin/bash
                 chmod 777 gradlew
@@ -16,7 +17,6 @@ pipeline {
         }
         
         stage('appImageBuild') {
-            steps {
                 echo 'appImageBuild..'
                 withCredentials([usernamePassword(credetialsId: registryCredsID,
                                                   usernameVariable: 'USERNAME',
@@ -32,8 +32,8 @@ pipeline {
                 podman commit --format=docker <imageid> docker.io/tomsweeneyredhat/testing:newtry2
                 podman logout
                 """
-            }
         }
+                                
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
