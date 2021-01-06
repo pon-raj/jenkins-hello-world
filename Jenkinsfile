@@ -8,15 +8,13 @@ pipeline {
     
     stages {
         stage('Build') {
-            steps {
-                echo 'Build'
-                sh '''
+                sh """
                 #!/bin/bash
                 chmod 777 gradlew
                 ./gradlew clean build
-                '''
-            }
+                """
         }
+        
         stage('appImageBuild') {
             steps {
                 echo 'appImageBuild..'
