@@ -3,6 +3,8 @@ FROM openliberty/open-liberty:kernel-java8-openj9-ubi
 ARG VERSION=1.0
 ARG REVISION=SNAPSHOT
 
+ENV HTTPPORT=9080 HTTPSPORT=9443
+
 LABEL \
   org.opencontainers.image.authors="Raj" \
   org.opencontainers.image.vendor="Open Liberty" \
@@ -17,12 +19,13 @@ LABEL \
   description="This image contains the HelloWorld Servlet running with the Open Liberty runtime."
   
 USER root
-RUN ln -s /opt/ol/wlp/usr/servers /servers
+#RUN ln -s /opt/ol/wlp/usr/servers /servers
 
 COPY --chown=1001:0 src/main/liberty/config /config/
 COPY --chown=1001:0 build/libs/helloworld-1.0.war /config/apps
 
 USER 1001
+EXPOSE 9080 9443
 # Run the server script and start the defaultServer by default.
 ENTRYPOINT ["/opt/ol/wlp/bin/server", "run"]
 CMD ["defaultServer"]
