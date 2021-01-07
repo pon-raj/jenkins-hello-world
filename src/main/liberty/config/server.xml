@@ -2,8 +2,11 @@
     <featureManager>
         <feature>servlet-4.0</feature>
     </featureManager>
+    
+    <variable name="default.http.port" defaultValue="9080" />
+    <variable name="default.https.port" defaultValue="9443" />    
 
     <httpEndpoint httpPort="${default.http.port}" httpsPort="${default.https.port}" id="defaultHttpEndpoint"  host="*" />
 
-    <webApplication id="HelloWorld" location="helloworld.war" contextRoot="${app.context.root}" />
+    <webApplication id="HelloWorld" location="helloworld-1.0.war" contextRoot="/" />
 </server>
