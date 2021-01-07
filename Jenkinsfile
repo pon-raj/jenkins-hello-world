@@ -30,10 +30,10 @@ pipeline {
                 
                 # IMAGE=${registry}/${namespace}/${imageName}:${env.BUILD_NUMBER}
                 podman login -u ${USERNAME} -p ${PASSWORD} ${registry} --tls-verify=false
-                podman tag localhost/ol-runtime u1z3/openliberty-helloworld:latest --tls-verify=false
-                podman push u1z3/openliberty-helloworld:latest --tls-verify=false
+                podman tag localhost/ol-runtime u1z3/openliberty-helloworld:latest
+                podman push u1z3/openliberty-helloworld:latest
                 # podman commit --format=docker <containerID> docker.io/u1z3/openliberty-helloworld:latest
-                podman logout --tls-verify=false
+                podman logout
                 """
                 }
             }
