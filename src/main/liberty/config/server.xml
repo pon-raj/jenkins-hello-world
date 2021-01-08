@@ -1,12 +1,25 @@
-<server description="Sample Servlet server">
+<?xml version="1.0" encoding="UTF-8"?>
+<server description="Sample Servlet Server">
+
+    <!-- Enable features -->
     <featureManager>
         <feature>servlet-4.0</feature>
     </featureManager>
-    
+
     <variable name="default.http.port" defaultValue="9080" />
-    <variable name="default.https.port" defaultValue="9443" />    
+    <variable name="default.https.port" defaultValue="9443" />
 
-    <httpEndpoint httpPort="${default.http.port}" httpsPort="${default.https.port}" id="defaultHttpEndpoint"  host="*" />
+    <!-- To access this server from a remote client add a host attribute to the following element, e.g. host="*" -->
+    <httpEndpoint id="defaultHttpEndpoint"
+                  host="*"
+                  httpPort="${default.http.port}"
+                  httpsPort="${default.https.port}" />
 
-    <webApplication id="HelloWorld" location="helloworld-1.0.war" contextRoot="/" />
+    <!-- Automatically expand WAR files and EAR files -->
+    <applicationManager autoExpand="false"/>
+
+    <application id="HelloWorld" type="war" location="helloworld-1.0.war" context-root="hello" />
+
+    <!-- Default SSL configuration enables trust for default certificates from the Java runtime -->
+    <ssl id="defaultSSLConfig" trustDefaultCerts="true" />
 </server>
