@@ -21,7 +21,7 @@ LABEL \
 #USER root
 #RUN ln -s /opt/ol/wlp/usr/servers /servers
 
-COPY --chown=1001:0 src/main/liberty/config/server.xml /config
+COPY --chown=1001:0 src/main/liberty/config/server.xml /opt/ol/wlp/usr/servers/defaultServer
 COPY --chown=1001:0 build/libs/helloworld-1.0.war /config/apps
 
 USER 1001
