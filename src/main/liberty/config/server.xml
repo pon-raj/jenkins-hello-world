@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<server description="Sample Servlet Server">
+<server description="new server">
 
     <!-- Enable features -->
     <featureManager>
@@ -22,4 +22,5 @@
 
     <!-- Default SSL configuration enables trust for default certificates from the Java runtime -->
     <ssl id="defaultSSLConfig" trustDefaultCerts="true" />
+
 </server>
