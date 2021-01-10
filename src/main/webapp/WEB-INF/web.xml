@@ -7,7 +7,7 @@
     
     <servlet>
         <servlet-name>HelloServlet</servlet-name>
-        <servlet-class>io.openliberty.guides.hello.HelloServlet</servlet-class>
+        <servlet-class>openliberty.example.HelloServlet</servlet-class>
     </servlet>
     
     <servlet-mapping>
